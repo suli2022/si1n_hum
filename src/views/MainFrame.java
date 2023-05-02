@@ -6,6 +6,7 @@ import java.util.Vector;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -18,7 +19,9 @@ public class MainFrame extends JFrame {
     JTable table;
     JScrollPane pane;
     Database db;
+    JPanel buttonPanel;
     JButton addButton;
+    JButton delButton;
 
     public MainFrame() {
         this.initComponent();
@@ -30,7 +33,9 @@ public class MainFrame extends JFrame {
         this.table = new JTable(model);
         this.pane = new JScrollPane(this.table);
         this.db = new Database();
+        this.buttonPanel = new JPanel();
         this.addButton = new JButton("Hozzáad");
+        this.delButton = new JButton("Töröl");
     }
     private void setComponent() {
         Object[] labels = {
@@ -40,7 +45,11 @@ public class MainFrame extends JFrame {
             "Fizetés"
         };
         this.model.setColumnIdentifiers(labels);
-
+        this.buttonPanel.setLayout(
+            new BoxLayout(this.buttonPanel, BoxLayout.LINE_AXIS)
+        );
+        this.buttonPanel.add(this.addButton);
+        this.buttonPanel.add(this.delButton);
 
         ArrayList<Employee> empList = this.db.getEmployees();
         for(Employee emp: empList) {
@@ -56,7 +65,7 @@ public class MainFrame extends JFrame {
     private void setFrame() {
         this.setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
         this.add(this.pane);
-        this.add(this.addButton);
+        this.add(this.buttonPanel);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(400, 300);
         this.setVisible(true);
@@ -64,5 +73,13 @@ public class MainFrame extends JFrame {
     public JButton getAddButton() {
         return addButton;
     }    
-    
+    public JButton getDelButton() {
+        return delButton;
+    }    
+    public JTable getTable() {
+        return this.table;
+    }
+    public DefaultTableModel getModel() {
+        return this.model;
+    }
 }
