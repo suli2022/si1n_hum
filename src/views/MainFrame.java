@@ -22,6 +22,7 @@ public class MainFrame extends JFrame {
     JPanel buttonPanel;
     JButton addButton;
     JButton delButton;
+    JButton editButton;
 
     public MainFrame() {
         this.initComponent();
@@ -36,6 +37,7 @@ public class MainFrame extends JFrame {
         this.buttonPanel = new JPanel();
         this.addButton = new JButton("Hozzáad");
         this.delButton = new JButton("Töröl");
+        this.editButton = new JButton("Szerkeszt");
     }
     private void setComponent() {
         Object[] labels = {
@@ -50,6 +52,7 @@ public class MainFrame extends JFrame {
         );
         this.buttonPanel.add(this.addButton);
         this.buttonPanel.add(this.delButton);
+        this.buttonPanel.add(this.editButton);
 
         ArrayList<Employee> empList = this.db.getEmployees();
         for(Employee emp: empList) {
@@ -82,4 +85,8 @@ public class MainFrame extends JFrame {
     public DefaultTableModel getModel() {
         return this.model;
     }
+    public JButton getEditButton() {
+        return editButton;
+    }
+
 }

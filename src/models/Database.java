@@ -51,26 +51,36 @@ public class Database {
         con.close();
     }
 
-    public void insertEmployee(Employee emp) {
+    public int insertEmployee(Employee emp) {
+        int id = 0;
         try {
-            tryInsertEmployee(emp);
+            id = tryInsertEmployee(emp);
         } catch (SQLException e) {
             System.err.println("Hiba! A rekord beszúrása sikertelen!");
+            System.err.println(e.getMessage());
         }
+        return id;
     }
-    public void tryInsertEmployee(Employee emp) 
+    public int tryInsertEmployee(Employee emp) 
             throws SQLException {
         Connection con = this.connectDb();
         String sql = "insert into employees" +
         "(name, city, salary) values "+
         "(?, ?, ?)";
-        PreparedStatement pstmt = con.prepareStatement(sql);
+        PreparedStatement pstmt = con.prepareStatement(sql, 
+            Statement.RETURN_GENERATED_KEYS);
         pstmt.setString(1, emp.name);
         pstmt.setString(2, emp.city);
         pstmt.setDouble(3, emp.salary);
         System.out.println(pstmt.toString());
-        pstmt.execute();
-        this.closeDb(con);   //con.close();
+        pstmt.executeUpdate();
+        ResultSet rs = pstmt.getGeneratedKeys();
+        int id=0;
+        if(rs.next()) {
+            id = rs.getInt(1);
+        }
+        this.closeDb(con);
+        return id;
     }
 
     public ArrayList<Employee> getEmployees() {
