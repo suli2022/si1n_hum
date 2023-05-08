@@ -5,6 +5,8 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
+import models.Employee;
+
 
 public class CreateFrame extends JDialog {
     InputPanel idPanel;
@@ -21,7 +23,7 @@ public class CreateFrame extends JDialog {
         this.cityPanel = new InputPanel("Település");
         this.salaryPanel = new InputPanel("Fizetés");
         this.buttonPanel = new JPanel();
-        this.addButton = new JButton("Hozzáadás");
+        this.addButton = new JButton("Mentés");
 
         this.buttonPanel.add(this.addButton);
 
@@ -35,10 +37,19 @@ public class CreateFrame extends JDialog {
         this.setSize(250, 150);
         this.setModal(true);
         this.setLocationRelativeTo(this.mainFrame);
-        
+
+
         
     }
-    
+
+    public void setEmployee(Employee emp) {
+        System.out.println("id setEmployeeban: " + emp.getId());
+        this.idPanel.setValue(emp.getId().toString());
+        this.namePanel.setValue(emp.getName());
+        this.cityPanel.setValue(emp.getCity());
+        this.salaryPanel.setValue(emp.getSalary().toString());
+    }
+
     public InputPanel getIdPanel() {
         return idPanel;
     }
