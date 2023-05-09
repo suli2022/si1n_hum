@@ -21,7 +21,6 @@ public class MainController {
     }
     private void handleEvent() {
         this.mainFrame.getAddButton().addActionListener(e -> {
-
             this.startAdd();
         });
         this.mainFrame.getDelButton().addActionListener(e -> {
@@ -45,10 +44,11 @@ public class MainController {
         this.database.deleteEmployee(id);        
     }
     private void startEdit() {
-        this.createController.createModel.setAdding(false);
-
         JTable table = this.mainFrame.getTable();
         int row = table.getSelectedRow();
+
+        this.createController.createModel.setSelected(row);
+        this.createController.createModel.setAdding(false);
 
         //TODO: Státusz sorba vagy párbeszédablakba,
         //írjuk ki, hogy nincs kijelölve semmi
@@ -67,6 +67,8 @@ public class MainController {
         CreateFrame createFrame = this.createController.getCreateFrame();
         createFrame.setTitle("Szerkesztés");
         createFrame.setEmployee(emp);
+        
         createFrame.setVisible(true);
+        
     }
 }

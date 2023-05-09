@@ -3,6 +3,7 @@ package controllers;
 import java.util.Vector;
 
 import javax.swing.JButton;
+import javax.swing.JTable;
 
 import models.CreateModel;
 import models.Database;
@@ -57,6 +58,31 @@ public class CreateController {
         this.createFrame.setVisible(false);
     }
     private void startUpdate() {
-        System.out.println("Frissítés árnyékeljárás...");
+        System.out.println("Frissítés árnyékeljárás...");        
+
+        String idStr = createFrame.getIdPanel().getValue();
+        String nameStr = createFrame.getNamePanel().getValue();
+        String cityStr = createFrame.getCityPanel().getValue();
+        String salaryStr = createFrame.getSalaryPanel().getValue();        
+        Integer id = Integer.parseInt(idStr);
+        Double salary = Double.parseDouble(salaryStr);
+
+        Employee emp = new Employee(id, nameStr, cityStr, salary);
+
+        new Database().updateEmployee(emp);
+
+        int selected = this.createModel.getSelected();
+        JTable table = this.mainFrame.getTable();
+        table.getModel().setValueAt(nameStr, selected, 1);
+        table.getModel().setValueAt(cityStr, selected, 2);
+        table.getModel().setValueAt(salaryStr, selected, 3);
+        this.createModel.setAdding(true);
+        this.createFrame.setTitle("");
+        this.createFrame.getIdPanel().setValue("");
+        this.createFrame.getNamePanel().setValue("");
+        this.createFrame.getCityPanel().setValue("");
+        this.createFrame.getSalaryPanel().setValue("");
+        this.createFrame.setVisible(false);
+        
     }
 }

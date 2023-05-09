@@ -43,7 +43,6 @@ public class CreateFrame extends JDialog {
     }
 
     public void setEmployee(Employee emp) {
-        System.out.println("id setEmployeeban: " + emp.getId());
         this.idPanel.setValue(emp.getId().toString());
         this.namePanel.setValue(emp.getName());
         this.cityPanel.setValue(emp.getCity());

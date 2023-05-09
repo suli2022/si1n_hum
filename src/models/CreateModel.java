@@ -2,7 +2,7 @@ package models;
 
 public class CreateModel {
     boolean adding;
-
+    int selected;
     public CreateModel() {
         this.adding = true;
     }
@@ -15,5 +15,11 @@ public class CreateModel {
         this.adding = adding;
     }
     
-    
+    public int getSelected() {
+        return selected;
+    }
+
+    public void setSelected(int selected) {
+        this.selected = selected;
+    }    
 }

@@ -16,3 +16,7 @@ on hum.*
 to hum@localhost
 identified by 'titok'; 
 
+grant all privileges
+on hum.*
+to hum@'%'
+identified by 'titok'; 
